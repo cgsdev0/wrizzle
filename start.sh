@@ -2,6 +2,8 @@
 
 cd "${0%/*}"
 
+echo "wtf" 1>&2
+
 [[ -f 'config.sh' ]] && source config.sh
 
 if [[ "${DEV:-true}" == "true" ]] && [[ ! -z "$TAILWIND" ]]; then
