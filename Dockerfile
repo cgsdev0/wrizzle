@@ -10,7 +10,7 @@ FROM ubuntu as prod
 
 ENV DEV=false
 
-RUN apt-get update && apt-get install ucspi-tcp moreutils
+RUN apt-get update && apt-get install -y ucspi-tcp moreutils
 
 EXPOSE 3000
 
