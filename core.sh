@@ -369,20 +369,19 @@ writeHttpResponse() {
     header Content-Type "text/event-stream"
     end_headers
     output() {
-      while [[ -z "$SHOULD_BREAK" ]]; do
+      while true; do
         inotifywait -e MODIFY -r pages static &> /dev/null
-        PID=$!
         event "reload"
       done
     }
     output &
+    PID=$!
 
 
     while IFS= read -r line; do
       :
     done
 
-    SHOULD_BREAK=true
     kill -9 $PID &>/dev/null
     wait $PID 2>/dev/null
 
@@ -407,12 +406,12 @@ writeHttpResponse() {
       fi
       SUB_FD=$(subscribe "$TOPIC")
       output() {
-        while [[ -z "$SHOULD_BREAK" ]]; do
+        while true; do
           cat "$SUB_FD"
-          PID=$!
         done
       }
       output &
+      PID=$!
 
       [[ $(type -t on_open) == function ]] && on_open 1>&2
 
@@ -420,7 +419,6 @@ writeHttpResponse() {
         :
       done
 
-      SHOULD_BREAK=true
       kill -9 $PID &>/dev/null
       wait $PID 2>/dev/null
 
