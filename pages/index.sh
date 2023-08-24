@@ -1,7 +1,7 @@
 
 source config.sh
 
-htmx_page << EOF
+htmx_page <<-EOF
   <div class="bg-slate-100 dark:bg-slate-950 dark:text-white grid place-content-center h-screen">
     <div class="flex flex-col gap-8 w-79">
 
